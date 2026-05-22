@@ -24,7 +24,7 @@ class AuthController
 
     public function login()
     {
-        $email = trim((string)($_POST['email'] ?? ''));
+        $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
@@ -41,15 +41,19 @@ class AuthController
             exit;
         }
 
-        $_SESSION['user'] = [
-            'id' => $user['id'],
-            'name' => $user['name'],
-            'email' => $user['email']
-        ];
+        // Flat session variables
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['name'] = $user['name'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['role'] = $user['role'];
 
         Flash::set('success', 'Welcome back, ' . $user['name']);
 
-        header("Location: ?controller=dashboard&action=index");
+        if ($user['role'] === 'admin') {
+    header("Location: ?controller=dashboard&action=admin");
+    } else {
+        header("Location: ?controller=dashboard&action=customer");
+    }
         exit;
     }
 

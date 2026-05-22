@@ -5,7 +5,7 @@ define('BASE_PATH', dirname(__DIR__));
 
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_strict_mode', 1);
-ini_set('session.cookie_secure', 0); // Set to 0 if not using HTTPS locally
+ini_set('session.cookie_secure', 0); 
 
 require_once BASE_PATH . '/app/core/Flash.php';
 require_once BASE_PATH . '/app/core/Session.php';
@@ -13,6 +13,7 @@ require_once BASE_PATH . '/app/core/Session.php';
 Session::start();
 
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $controllerName = preg_replace('/[^a-zA-Z]/', '', $_GET['controller'] ?? 'page');

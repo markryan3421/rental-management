@@ -7,11 +7,22 @@ class DashboardController
 {
     public function __construct()
     {
-         AuthMiddleware::check();
+        AuthMiddleware::check();
     }
-    public function index()
+
+    public function admin()
     {
-        require __DIR__ . '/../views/dashboard/index.php';
+        // Optional: extra role check (only admin)
+        if (($_SESSION['role'] ?? '') !== 'admin') {
+            header("Location: ?controller=dashboard&action=customer");
+            exit;
+        }
+        require __DIR__ . '/../views/dashboard/admin.php';
+    }
+
+    public function customer()
+    {
+        require __DIR__ . '/../views/dashboard/customer.php';
     }
 
     public function stats()
