@@ -1,0 +1,88 @@
+
+
+// Modern Blue Theme
+$prim: #1E40AF;   // Indigo 800
+$sec: #3B82F6;    // Blue 500
+$success: #22C55E; // Green 500 (modern success)
+$lightG: #F0F9FF; // Light Blue background
+$red: #EF4444;    // Red 500
+$warning: #FACC15; // Yellow 400
+$nav-size: 15px;
+$y-green: #91BF21;
+$black: #111827;  // Slate 900
+$lteal: #E0F2FE;  // Blue-100 variant
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..600;1,300..800&display=swap');
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../../../node_modules/bootstrap/scss/functions";
+
+// 2. Bootstrap variable overrides
+$dropdown-border-width: 0 !default;
+$dropdown-border-radius: 10px;
+$nav-link-hover-color: $prim !default;
+$dropdown-link-hover-color: $prim;
+$dropdown-link-hover-bg: none !default;
+$nav-link-font-size: $nav-size !default;
+$dropdown-font-size: $nav-size !default;
+$dropdown-bg: $lteal !default;
+$dropdown-link-active-bg: $prim !default;
+
+// 3. Theme colors override
+$theme-colors: (
+  "primary": $prim,
+  "secondary": $sec,
+  "success": $success,
+  "warning": $warning,
+  "danger": $red
+);
+
+// 4. Add custom colors
+$custom-colors: (
+  "black": $black,
+  "lteal": $lteal,
+  "lightG": $lightG
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import "../../../node_modules/bootstrap/scss/utilities";
+@import "../../../node_modules/bootstrap/scss/reboot";
+@import "../../../node_modules/bootstrap/scss/type";
+@import "../../../node_modules/bootstrap/scss/images";
+@import "../../../node_modules/bootstrap/scss/containers";
+@import "../../../node_modules/bootstrap/scss/grid";
+@import "../../../node_modules/bootstrap/scss/helpers";
+@import "../../../node_modules/bootstrap/scss/nav";
+@import "../../../node_modules/bootstrap/scss/navbar";
+@import "../../../node_modules/bootstrap/scss/buttons";
+@import "../../../node_modules/bootstrap/scss/button-group";
+@import "../../../node_modules/bootstrap/scss/transitions";
+@import "../../../node_modules/bootstrap/scss/list-group";
+@import "../../../node_modules/bootstrap/scss/dropdown";
+@import "../../../node_modules/bootstrap/scss/card";
+@import "../../../node_modules/bootstrap/scss/forms";
+@import "../../../node_modules/bootstrap/scss/modal";
+@import "../../../node_modules/bootstrap/scss/close";
+@import "../../../node_modules/bootstrap/scss/tables";
+@import "../../../node_modules/bootstrap/scss/badge";
+@import "../../../node_modules/bootstrap/scss/accordion";
+@import "../../../node_modules/bootstrap/scss/alert";
+@import "../../../node_modules/bootstrap/scss/toasts";
+@import "../../../node_modules/bootstrap/scss/placeholders";
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../../../node_modules/bootstrap/scss/utilities/api";
+
+// 8. Add additional custom code here
