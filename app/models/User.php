@@ -33,10 +33,10 @@ class User
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    public function create(string $name, string $email): bool
+    public function create(string $name, string $email, string $hashedPassword): bool
     {
-        $stmt = $this->db->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-        return $stmt->execute([$name, $email]);
+        $stmt = $this->db->prepare("INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, NOW())");
+        return $stmt->execute([$name, $email, $hashedPassword]);
     }
 
     public function update(int $id, string $name, string $email): bool
