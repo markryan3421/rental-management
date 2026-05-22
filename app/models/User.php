@@ -10,7 +10,8 @@ class User
 
     public function __construct()
     {
-        $this->db = Database::getConnection();
+        // database.php returns a PDO instance
+        $this->db = require __DIR__ . '/../config/database.php';
     }
 
     public function all(): array
@@ -22,14 +23,14 @@ class User
     {
         $queryData = $this->db->prepare("SELECT * FROM users WHERE id = :id");
         $queryData->execute(['id' => $id]);
-        return $queryData->fetch() ?: null;
+        return $queryData->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
     public function findByEmail(string $email): ?array
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
-        return $stmt->fetch() ?: null;
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
     public function create(string $name, string $email): bool
