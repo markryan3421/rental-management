@@ -1,17 +1,27 @@
 <?php ob_start(); ?>
-
-<div class="container pt-5">
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-6 my-auto">
-            <h1>Welcome to Contact Page</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat numquam non, eum, sunt corrupti sequi, voluptatum possimus perspiciatis quasi tempore assumenda corporis accusantium quo officia!</p>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6">
-            <img src="https://images.pexels.com/photos/35927296/pexels-photo-35927296.jpeg" alt="About Us" class="img-fluid rounded-5">
-        </div>
+<div class="page-section fade-up">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center mb-4">
+        <h1 class="display-4 fw-bold">Get in <span class="text-warning">Touch</span></h1>
+        <p class="lead">We'll reply within 24 hours.</p>
+      </div>
     </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card bg-dark border-0 rounded-4 p-4">
+          <form action="?controller=page&action=sendMessage" method="POST">
+            <div class="mb-3"><input type="text" name="name" class="form-control" placeholder="Your Name" required></div>
+            <div class="mb-3"><input type="email" name="email" class="form-control" placeholder="Email Address" required></div>
+            <div class="mb-3"><textarea name="message" rows="3" class="form-control" placeholder="Message" required></textarea></div>
+            <button type="submit" class="btn btn-warning w-100">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
 <?php
 $content = ob_get_clean();
 require __DIR__ . '/../layouts/layout.php';
+?>

@@ -29,6 +29,10 @@ class PageController
 
     public function shop()
     {
+        // Require authentication
+        require_once __DIR__ . '/../middleware/AuthMiddleware.php';
+        AuthMiddleware::check();
+
         require_once __DIR__ . '/../models/Equipment.php';
         $equipmentModel = new Equipment();
         $equipmentList = $equipmentModel->getAll();

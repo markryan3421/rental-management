@@ -244,6 +244,15 @@
     transition: opacity .15s;
   }
   .btn-book:hover { opacity: .88; color: #1e293b; }
+  /* Past days styling */
+  .fc-past-day {
+    background-color: rgba(100, 116, 139, 0.15);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  .fc-past-day .fc-daygrid-day-number {
+    color: #64748b !important;
+  }
 </style>
 
 <!-- ── Page hero ──────────────────────────────────────────────────── -->
@@ -467,6 +476,10 @@
         center: 'title',
         right:  'dayGridMonth,dayGridWeek'
       },
+      // Disable dates before today
+      validRange: {
+        start: new Date().toISOString().split('T')[0]  // today in YYYY-MM-DD
+      },
       events: {
         url: `?controller=equipment&action=getBookedDates&equipment_id=${eqId}`,
         failure: () => console.warn('Could not load booked dates.')
@@ -475,11 +488,18 @@
       selectable:       true,
       unselectAuto:     true,
       dateClick: function(info) {
-        // Navigate to booking form with prefilled date
+        // Prevent booking on past dates
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const clickedDate = info.date;
+        clickedDate.setHours(0, 0, 0, 0);
+        if (clickedDate < today) {
+          alert("You cannot book past dates.");
+          return;
+        }
         const meta = equipmentMeta[eqId];
         if (meta) {
-          window.location.href =
-            `?controller=booking&action=create&equipment_id=${eqId}&start_date=${info.dateStr}`;
+          window.location.href = `?controller=booking&action=create&equipment_id=${eqId}&start_date=${info.dateStr}`;
         }
       },
       eventsSet: function(events) {

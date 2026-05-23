@@ -1,17 +1,16 @@
 <?php ob_start(); ?>
-
-<div class="container pt-5">
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-6 my-auto">
-            <h1>Welcome to About Page</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat numquam non, eum, sunt corrupti sequi, voluptatum possimus perspiciatis quasi tempore assumenda corporis accusantium quo officia!</p>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6">
-            <img src="https://images.pexels.com/photos/35927296/pexels-photo-35927296.jpeg" alt="About Us" class="img-fluid rounded-5">
-        </div>
+<div class="page-section fade-up">
+  <div class="container text-center">
+    <h1 class="display-3 fw-bold">Our <span class="text-warning">Story</span></h1>
+    <p class="lead mx-auto" style="max-width: 700px;">We provide high‑quality event rentals with exceptional service. Trusted by hundreds of customers in Victorias City.</p>
+    <div class="mt-4">
+      <i class="bi bi-trophy fs-1 text-warning me-3"></i>
+      <i class="bi bi-calendar-check fs-1 text-warning me-3"></i>
+      <i class="bi bi-people fs-1 text-warning"></i>
     </div>
+  </div>
 </div>
-
 <?php
 $content = ob_get_clean();
 require __DIR__ . '/../layouts/layout.php';
+?>

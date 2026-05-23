@@ -62,6 +62,10 @@
       <?php endforeach; ?>
   <?php endif; ?>
 
+  <div>
+    <a href="?controller=equipment&action=create" class="btn btn-primary mb-4 float-end">Add New Equipment</a>
+  </div>
+
     <table class="table table-bordered table-striped" id="equipmentTable">
         <thead>
             <tr>
