@@ -52,12 +52,14 @@ $userName = $_SESSION['name'] ?? 'User';
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="?controller=page&action=home">EventShop Rentals</a>
+        <div class="navbar-brand fw-bold">JB's Rentals</div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <?php if (!$isLoggedIn): ?>
             <!-- Public pages -->
             <li class="nav-item"><a class="nav-link" href="?controller=page&action=home">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="?controller=page&action=shop">Shop</a></li>
@@ -66,6 +68,7 @@ $userName = $_SESSION['name'] ?? 'User';
             <li class="nav-item">
                 <a class="nav-link" href="?controller=equipment&action=calendar">Availability Calendar</a>
             </li>
+          <?php endif; ?>
             
             <!-- Admin only -->
             <?php if ($isLoggedIn && ($_SESSION['role'] ?? '') === 'admin'): ?>

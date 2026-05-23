@@ -1,4 +1,4 @@
-<?php require_once BASE_PATH . '/app/views/layouts/layout.php'; ?>
+<?php ob_start(); ?>
 
 <div class="container mt-4">
     <h2>Add New Equipment</h2>
@@ -35,4 +35,7 @@
     </form>
 </div>
 
-<?php require_once BASE_PATH . '/app/views/layouts/layout.php'; ?>
+<?php 
+    $content = ob_get_clean();
+    require_once BASE_PATH . '/app/views/layouts/layout.php'; 
+?>
