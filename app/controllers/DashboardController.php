@@ -12,7 +12,7 @@ class DashboardController
 
     public function admin()
     {
-        // Optional: extra role check (only admin)
+        // Only admin allowed
         if (($_SESSION['role'] ?? '') !== 'admin') {
             header("Location: ?controller=dashboard&action=customer");
             exit;

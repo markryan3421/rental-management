@@ -18,7 +18,9 @@
             <div class="card text-white bg-success mb-3">
                 <div class="card-header">Active Bookings</div>
                 <div class="card-body">
-                    <h5 class="card-title">Coming Soon</h5>
+                    <a href="?controller=booking&action=adminIndex" class="text-decoration-none">
+                        View
+                    </a>
                 </div>
             </div>
         </div>

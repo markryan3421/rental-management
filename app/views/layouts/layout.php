@@ -27,21 +27,25 @@ $userName = $_SESSION['name'] ?? 'User';
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- Admin only: Equipment Management (optional) -->
+            <!-- Admin only: Equipment Management -->
             <?php if ($isLoggedIn && ($_SESSION['role'] ?? '') === 'admin'): ?>
             <li class="nav-item">
               <a class="nav-link" href="?controller=equipment&action=index">Equipment</a>
             </li>
             <?php endif; ?>
+
+            <!-- Admin only: All Bookings -->
+            <?php if ($isLoggedIn && ($_SESSION['role'] ?? '') === 'admin'): ?>
+            <li class="nav-item">
+                <a class="nav-link" href="?controller=booking&action=adminIndex">All Bookings</a>
+            </li>
+            <?php endif; ?>
+
+            <li class="nav-item">
+                <a class="nav-link" href="?controller=equipment&action=calendar">Availability Calendar</a>
+            </li>
           </ul>
           
-          <form class="d-flex" role="search" action="?controller=page&action=shop" method="GET">
-            <input type="hidden" name="controller" value="page">
-            <input type="hidden" name="action" value="shop">
-            <input class="form-control me-2" type="search" name="search" placeholder="Search items" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-
           <?php if ($isLoggedIn): ?>
             <div class="dropdown ms-2">
               <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">

@@ -10,19 +10,58 @@ class EquipmentController
 
     public function __construct()
     {
+        $action = $_GET['action'] ?? '';
+        $publicActions = ['calendar', 'getBookedDates'];
+        if (!in_array($action, $publicActions)) {
+            AuthMiddleware::check();
+            if (($_SESSION['role'] ?? '') !== 'admin') {
+                header("Location: ?controller=dashboard&action=customer");
+                exit;
+            }
+        }
         $this->equipment = new Equipment();
+    }
 
-        AuthMiddleware::check();
-        // Only admin can access equipment management
-        if (($_SESSION['role'] ?? '') !== 'admin') {
-            header("Location: ?controller=dashboard&action=customer");
+    // Show calendar page
+    public function calendar()
+    {
+        // Get all equipment for dropdown
+        $equipmentList = $this->equipment->getAll();
+        require __DIR__ . '/../views/equipment/calendar.php';
+    }
+
+    // AJAX endpoint: return booked events for an equipment
+    public function getBookedDates()
+    {
+        header('Content-Type: application/json');
+        $equipmentId = (int)($_GET['equipment_id'] ?? 0);
+        if (!$equipmentId) {
+            echo json_encode([]);
             exit;
         }
+
+        $bookings = $this->equipment->getBookedDates($equipmentId);
+
+        // Convert to FullCalendar event format
+        $events = [];
+        foreach ($bookings as $booking) {
+            // FullCalendar uses all-day events: end date should be exclusive, so add one day
+            $end = date('Y-m-d', strtotime($booking['end_date'] . ' +1 day'));
+            $events[] = [
+                'title' => 'Booked',
+                'start' => $booking['start_date'],
+                'end' => $end,
+                'color' => '#dc3545',        // red background
+                'textColor' => 'white'       // white text
+            ];
+        }
+        echo json_encode($events);
+        exit;
     }
 
     public function index(): void
     {
-        $equipmentList = $this->equipment->all();
+        $equipmentList = $this->equipment->getAll();
         require_once BASE_PATH . '/app/views/equipment/index.php';
     }
 

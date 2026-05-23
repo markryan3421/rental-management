@@ -29,6 +29,31 @@ class PageController
 
     public function shop()
     {
+        require_once __DIR__ . '/../models/Equipment.php';
+        $equipmentModel = new Equipment();
+        $equipmentList = $equipmentModel->getAll();
+        
         require __DIR__ . '/../views/pages/shop.php';
+    }
+
+    public function checkAvailability()
+    {
+        header('Content-Type: application/json');
+        
+        $id = (int)($_GET['id'] ?? 0);
+        $startDate = $_GET['start'] ?? '';
+        $endDate = $_GET['end'] ?? '';
+        
+        if (!$id || !$startDate || !$endDate) {
+            echo json_encode(['available' => false, 'error' => 'Missing parameters']);
+            exit;
+        }
+        
+        require_once __DIR__ . '/../models/Equipment.php';
+        $equipment = new Equipment();
+        $available = $equipment->checkAvailability($id, $startDate, $endDate);
+        
+        echo json_encode(['available' => $available]);
+        exit;
     }
 }
