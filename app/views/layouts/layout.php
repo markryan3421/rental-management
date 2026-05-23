@@ -13,8 +13,12 @@ $userName = $_SESSION['name'] ?? 'User';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rental Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+  <link rel="stylesheet" href="assets/css/style.min.css">
 </head>
 
 <body>
@@ -52,7 +56,7 @@ $userName = $_SESSION['name'] ?? 'User';
                 <i class="bi bi-person-circle"></i> <?= htmlspecialchars($userName) ?>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="?controller=user&action=dashboard">Dashboard</a></li>
+                <li><a class="dropdown-item" href="?controller=dashboard&action=admin">Dashboard</a></li>
                 <li><a class="dropdown-item" href="?controller=booking&action=myBookings">My Rentals</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" href="?controller=auth&action=logout">Logout</a></li>

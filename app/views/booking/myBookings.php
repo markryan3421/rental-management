@@ -1,6 +1,55 @@
 <?php ob_start(); ?>
+<style>
+:root {
+    --cal-accent:  #f59e0b;   /* amber – energetic, rental-industry feel */
+    --cal-danger:  #ef4444;   /* booked */
+    --cal-available: #22c55e; /* available */
+  }
+/* ── Page header ─────────────────────────────────────────────── */
+.cal-hero {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-bottom: 3px solid var(--cal-accent);
+  padding: 2rem 0 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.cal-hero .badge-accent {
+  background-color: var(--cal-accent);
+  color: #1e293b;
+  font-weight: 700;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .35em .75em;
+  border-radius: 2rem;
+}
+
+.cal-hero h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: .4rem 0 .25rem;
+  letter-spacing: -.02em;
+}
+
+.cal-hero p {
+  color: #94a3b8;
+  margin: 0;
+  font-size: .95rem;
+}
+</style>
+
+<div class="cal-hero">
+    <div class="container">
+        <span class="badge-accent">
+        <i class="bi bi-bookmarks"></i> Rentals
+        </span>
+        <h1>My Rentals</h1>
+        <p>Manage all the rentals booked here.</p>
+    </div>
+</div>
+
 <div class="container mt-4">
-    <h1>My Rentals</h1>
     <?php if (empty($bookings)): ?>
         <div class="alert alert-info">You have no bookings yet. <a href="?controller=page&action=shop">Start shopping</a></div>
     <?php else: ?>

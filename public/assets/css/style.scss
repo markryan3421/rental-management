@@ -1,0 +1,1255 @@
+// ============================================================
+//  EventShop Rentals — Global Stylesheet
+//  Usage: compile to style.min.css, then link AFTER Bootstrap
+//  Overrides Bootstrap 5 via CSS variables + specificity.
+// ============================================================
+
+// ── 1. Google Font ───────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+
+// ── 2. Design tokens ─────────────────────────────────────────
+//    Defined on :root so they're available everywhere.
+//    These feed into Bootstrap variable overrides below.
+:root {
+  // Brand palette
+  --er-amber: #f59e0b;
+  --er-amber-dim: rgba(245, 158, 11, 0.15);
+  --er-amber-border: rgba(245, 158, 11, 0.25);
+
+  // Dark surface scale
+  --er-bg-base: #0f172a; // deepest background
+  --er-bg-card: #1e293b; // card / panel surface
+  --er-bg-elevated: #253348; // hovered / raised surface
+  --er-border: rgba(255, 255, 255, 0.08);
+
+  // Text scale
+  --er-text-primary: #f1f5f9;
+  --er-text-secondary: #94a3b8;
+  --er-text-muted: #64748b;
+
+  // Semantic colours
+  --er-success: #22c55e;
+  --er-danger: #ef4444;
+  --er-info: #38bdf8;
+
+  // Typography
+  --er-font: 'Outfit', system-ui, sans-serif;
+  --er-radius: .6rem;
+  --er-radius-lg: 1rem;
+}
+
+
+// ── 3. Bootstrap variable overrides ──────────────────────────
+//    Redefine Bootstrap's own CSS variables so every
+//    Bootstrap component automatically uses our theme.
+[data-bs-theme="dark"] {
+  --bs-body-font-family: var(--er-font);
+  --bs-body-bg: var(--er-bg-base);
+  --bs-body-color: var(--er-text-primary);
+
+  --bs-primary: var(--er-amber);
+  --bs-primary-rgb: 245, 158, 11;
+  --bs-link-color: var(--er-amber);
+  --bs-link-hover-color: #fbbf24;
+
+  --bs-secondary-bg: var(--er-bg-card);
+  --bs-tertiary-bg: var(--er-bg-elevated);
+
+  --bs-border-color: var(--er-border);
+  --bs-border-radius: var(--er-radius);
+  --bs-border-radius-lg: var(--er-radius-lg);
+
+  --bs-success-rgb: 34, 197, 94;
+  --bs-danger-rgb: 239, 68, 68;
+  --bs-info-rgb: 56, 189, 248;
+
+  --bs-card-bg: var(--er-bg-card);
+  --bs-card-border-color: var(--er-border);
+  --bs-card-cap-bg: transparent;
+
+  --bs-input-bg: var(--er-bg-base);
+  --bs-input-border-color: var(--er-border);
+  --bs-input-color: var(--er-text-primary);
+  --bs-input-focus-border-color: var(--er-amber);
+  --bs-input-focus-box-shadow: 0 0 0 3px var(--er-amber-dim);
+
+  --bs-table-bg: transparent;
+  --bs-table-striped-bg: rgba(255, 255, 255, .03);
+  --bs-table-hover-bg: rgba(245, 158, 11, .06);
+  --bs-table-border-color: var(--er-border);
+  --bs-table-color: var(--er-text-primary);
+
+  --bs-modal-bg: var(--er-bg-card);
+  --bs-modal-border-color: var(--er-border);
+
+  --bs-dropdown-bg: var(--er-bg-card);
+  --bs-dropdown-border-color: var(--er-border);
+  --bs-dropdown-link-color: var(--er-text-secondary);
+  --bs-dropdown-link-hover-bg: var(--er-amber-dim);
+  --bs-dropdown-link-hover-color: var(--er-amber);
+  --bs-dropdown-link-active-bg: var(--er-amber);
+  --bs-dropdown-link-active-color: #1e293b;
+
+  --bs-nav-link-color: var(--er-text-secondary);
+  --bs-nav-link-hover-color: var(--er-text-primary);
+
+  --bs-badge-font-size: .72em;
+  --bs-badge-font-weight: 600;
+  --bs-badge-border-radius: 2rem;
+
+  --bs-toast-background-color: var(--er-bg-card);
+  --bs-toast-border-color: var(--er-border);
+  --bs-toast-color: var(--er-text-primary);
+
+  --bs-list-group-bg: var(--er-bg-card);
+  --bs-list-group-border-color: var(--er-border);
+  --bs-list-group-action-hover-bg: var(--er-bg-elevated);
+  --bs-list-group-action-hover-color: var(--er-text-primary);
+  --bs-list-group-active-bg: var(--er-amber);
+  --bs-list-group-active-border-color: var(--er-amber);
+  --bs-list-group-active-color: #1e293b;
+}
+
+
+// ── 4. Base / reset additions ─────────────────────────────────
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+[data-bs-theme="dark"] body {
+  font-family: var(--er-font);
+  background-color: var(--er-bg-base);
+  color: var(--er-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+// ── 5. Typography ─────────────────────────────────────────────
+[data-bs-theme="dark"] {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--er-font);
+    font-weight: 700;
+    color: var(--er-text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .text-muted {
+    color: var(--er-text-muted) !important;
+  }
+
+  .text-secondary {
+    color: var(--er-text-secondary) !important;
+  }
+
+  .text-amber {
+    color: var(--er-amber) !important;
+  }
+
+  .text-success {
+    color: var(--er-success) !important;
+  }
+
+  .text-danger {
+    color: var(--er-danger) !important;
+  }
+
+  // Section labels (uppercase small caps used in the calendar sidebar)
+  .er-label {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--er-text-muted);
+  }
+}
+
+
+// ── 6. Navbar ─────────────────────────────────────────────────
+[data-bs-theme="dark"] .navbar {
+  background-color: var(--er-bg-card) !important;
+  border-bottom: 1px solid var(--er-border);
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+
+  .navbar-brand {
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--er-text-primary);
+    letter-spacing: -.02em;
+
+    // Amber dot accent on the brand name
+    &::after {
+      content: '.';
+      color: var(--er-amber);
+    }
+  }
+
+  .nav-link {
+    font-size: .875rem;
+    font-weight: 500;
+    color: var(--er-text-secondary);
+    border-radius: .4rem;
+    padding: .4rem .7rem;
+    transition: color .15s, background .15s;
+
+    &:hover,
+    &.active {
+      color: var(--er-text-primary);
+      background: var(--er-amber-dim);
+    }
+  }
+
+  .navbar-toggler {
+    border-color: var(--er-border);
+
+    &:focus {
+      box-shadow: 0 0 0 3px var(--er-amber-dim);
+    }
+  }
+}
+
+
+// ── 7. Buttons ────────────────────────────────────────────────
+[data-bs-theme="dark"] {
+
+  // Primary = amber
+  .btn-primary {
+    background-color: var(--er-amber);
+    border-color: var(--er-amber);
+    color: #1e293b;
+    font-weight: 600;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #fbbf24;
+      border-color: #fbbf24;
+      color: #1e293b;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px var(--er-amber-dim);
+    }
+  }
+
+  // Secondary = muted dark surface
+  .btn-secondary {
+    background-color: var(--er-bg-elevated);
+    border-color: var(--er-border);
+    color: var(--er-text-secondary);
+    font-weight: 500;
+
+    &:hover,
+    &:focus {
+      background-color: #2d3f57;
+      color: var(--er-text-primary);
+    }
+  }
+
+  // Outline variants
+  .btn-outline-primary {
+    border-color: var(--er-amber);
+    color: var(--er-amber);
+
+    &:hover {
+      background-color: var(--er-amber);
+      color: #1e293b;
+    }
+  }
+
+  .btn-outline-secondary {
+    border-color: var(--er-border);
+    color: var(--er-text-secondary);
+
+    &:hover {
+      background-color: var(--er-bg-elevated);
+      color: var(--er-text-primary);
+    }
+  }
+
+  .btn-outline-danger {
+    border-color: var(--er-danger);
+    color: var(--er-danger);
+
+    &:hover {
+      background-color: var(--er-danger);
+      color: #fff;
+    }
+  }
+
+  .btn-outline-warning {
+    border-color: var(--er-amber);
+    color: var(--er-amber);
+
+    &:hover {
+      background-color: var(--er-amber);
+      color: #1e293b;
+    }
+  }
+
+  // Danger
+  .btn-danger {
+    background-color: var(--er-danger);
+    border-color: var(--er-danger);
+    color: #fff;
+    font-weight: 600;
+
+    &:hover {
+      opacity: .88;
+    }
+  }
+
+  // Warning (maps to amber)
+  .btn-warning {
+    background-color: var(--er-amber);
+    border-color: var(--er-amber);
+    color: #1e293b;
+    font-weight: 600;
+
+    &:hover {
+      opacity: .88;
+      color: #1e293b;
+    }
+  }
+
+  // Size tweaks — small buttons feel too tight by default
+  .btn-sm {
+    font-size: .78rem;
+    padding: .3rem .65rem;
+    border-radius: .4rem;
+  }
+
+  .btn {
+    border-radius: var(--er-radius);
+    transition: opacity .15s, background .15s, color .15s, border-color .15s;
+  }
+}
+
+
+// ── 8. Cards ──────────────────────────────────────────────────
+[data-bs-theme="dark"] {
+  .card {
+    background-color: var(--er-bg-card);
+    border: 1px solid var(--er-border);
+    border-radius: var(--er-radius-lg);
+
+    .card-header {
+      background: transparent;
+      border-bottom: 1px solid var(--er-border);
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+      color: var(--er-text-primary);
+    }
+
+    .card-footer {
+      background: transparent;
+      border-top: 1px solid var(--er-border);
+    }
+
+    // "Shadow" variant used across several views
+    &.shadow-sm {
+      box-shadow: 0 2px 16px rgba(0, 0, 0, .35) !important;
+    }
+  }
+
+  // Icon badge inside card headers (matches calendar sidebar style)
+  .card-header-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: .5rem;
+    background: var(--er-amber-dim);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--er-amber);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+}
+
+
+// ── 9. Forms ──────────────────────────────────────────────────
+[data-bs-theme="dark"] {
+
+  .form-control,
+  .form-select {
+    background-color: var(--er-bg-base);
+    border-color: var(--er-border);
+    color: var(--er-text-primary);
+    border-radius: var(--er-radius);
+    font-size: .9rem;
+
+    &::placeholder {
+      color: var(--er-text-muted);
+    }
+
+    &:focus {
+      background-color: var(--er-bg-base);
+      border-color: var(--er-amber);
+      color: var(--er-text-primary);
+      box-shadow: 0 0 0 3px var(--er-amber-dim);
+    }
+  }
+
+  .form-select option {
+    background: var(--er-bg-card);
+  }
+
+  .form-label {
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--er-text-secondary);
+    margin-bottom: .4rem;
+  }
+
+  .form-check-input {
+    background-color: var(--er-bg-base);
+    border-color: var(--er-border);
+
+    &:checked {
+      background-color: var(--er-amber);
+      border-color: var(--er-amber);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px var(--er-amber-dim);
+    }
+  }
+
+  .input-group-text {
+    background-color: var(--er-bg-elevated);
+    border-color: var(--er-border);
+    color: var(--er-text-secondary);
+  }
+}
+
+
+// ── 10. Tables ────────────────────────────────────────────────
+[data-bs-theme="dark"] {
+  .table {
+    color: var(--er-text-primary);
+    border-color: var(--er-border);
+
+    thead th {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--er-text-muted);
+      border-bottom: 1px solid var(--er-border);
+      padding: .75rem 1rem;
+      background: var(--er-bg-card);
+    }
+
+    tbody td {
+      padding: .8rem 1rem;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--er-border);
+      font-size: .875rem;
+    }
+
+    &.table-hover tbody tr:hover td {
+      background-color: rgba(245, 158, 11, .05);
+      color: var(--er-text-primary);
+    }
+
+    &.table-striped tbody tr:nth-of-type(odd) td {
+      background-color: rgba(255, 255, 255, .02);
+    }
+
+    // Remove outer border on table-bordered in dark context
+    &.table-bordered {
+      border-color: var(--er-border);
+
+      td,
+      th {
+        border-color: var(--er-border);
+      }
+    }
+  }
+}
+
+
+// ── 11. Badges ────────────────────────────────────────────────
+[data-bs-theme="dark"] {
+
+  // Override Bootstrap's badge colours to be semi-transparent pills
+  .badge {
+    font-weight: 600;
+    letter-spacing: .04em;
+    border-radius: 2rem;
+    font-size: .72em;
+  }
+
+  .badge.bg-primary {
+    background: var(--er-amber-dim) !important;
+    color: var(--er-amber);
+    border: 1px solid var(--er-amber-border);
+  }
+
+  .badge.bg-success {
+    background: rgba(34, 197, 94, .15) !important;
+    color: var(--er-success);
+    border: 1px solid rgba(34, 197, 94, .3);
+  }
+
+  .badge.bg-danger {
+    background: rgba(239, 68, 68, .15) !important;
+    color: var(--er-danger);
+    border: 1px solid rgba(239, 68, 68, .3);
+  }
+
+  .badge.bg-warning {
+    background: var(--er-amber-dim) !important;
+    color: var(--er-amber);
+    border: 1px solid var(--er-amber-border);
+  }
+
+  .badge.bg-secondary {
+    background: rgba(148, 163, 184, .12) !important;
+    color: #94a3b8;
+    border: 1px solid rgba(148, 163, 184, .2);
+  }
+
+  .badge.bg-info {
+    background: rgba(56, 189, 248, .12) !important;
+    color: var(--er-info);
+    border: 1px solid rgba(56, 189, 248, .25);
+  }
+}
+
+
+// ── 12. Alerts ────────────────────────────────────────────────
+[data-bs-theme="dark"] {
+  .alert {
+    border-radius: var(--er-radius);
+    border: 1px solid;
+    font-size: .875rem;
+
+    &.alert-success {
+      background: rgba(34, 197, 94, .1);
+      border-color: rgba(34, 197, 94, .25);
+      color: #4ade80;
+    }
+
+    &.alert-danger {
+      background: rgba(239, 68, 68, .1);
+      border-color: rgba(239, 68, 68, .25);
+      color: #f87171;
+    }
+
+    &.alert-warning {
+      background: var(--er-amber-dim);
+      border-color: var(--er-amber-border);
+      color: #fcd34d;
+    }
+
+    &.alert-info {
+      background: rgba(56, 189, 248, .1);
+      border-color: rgba(56, 189, 248, .2);
+      color: #7dd3fc;
+    }
+
+    .btn-close {
+      filter: invert(1) opacity(.6);
+    }
+  }
+}
+
+
+// ── 13. Modals ────────────────────────────────────────────────
+[data-bs-theme="dark"] {
+  .modal-content {
+    background: var(--er-bg-card);
+    border: 1px solid var(--er-border);
+    border-radius: var(--er-radius-lg);
+  }
+
+  .modal-header {
+    border-bottom: 1px solid var(--er-border);
+
+    .modal-title {
+      font-weight: 700;
+      color: var(--er-text-primary);
+    }
+
+    .btn-close {
+      filter: invert(1) opacity(.6);
+    }
+  }
+
+  .modal-footer {
+    border-top: 1px solid var(--er-border);
+  }
+
+  .modal-backdrop {
+    --bs-backdrop-opacity: .7;
+  }
+}
+
+
+// ── 14. Dropdowns ─────────────────────────────────────────────
+[data-bs-theme="dark"] {
+  .dropdown-menu {
+    background-color: var(--er-bg-card);
+    border: 1px solid var(--er-border);
+    border-radius: var(--er-radius);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .4);
+    padding: .35rem;
+
+    .dropdown-item {
+      color: var(--er-text-secondary);
+      border-radius: .4rem;
+      font-size: .875rem;
+      padding: .45rem .75rem;
+
+      &:hover,
+      &:focus {
+        color: var(--er-amber);
+        background: var(--er-amber-dim);
+      }
+
+      &.text-danger:hover {
+        color: var(--er-danger) !important;
+        background: rgba(239, 68, 68, .1);
+      }
+    }
+
+    .dropdown-divider {
+      border-color: var(--er-border);
+      margin: .3rem 0;
+    }
+  }
+
+  // User avatar button in navbar
+  .btn.dropdown-toggle {
+    border-color: var(--er-border);
+    color: var(--er-text-secondary);
+
+    &:hover,
+    &:focus {
+      background: var(--er-amber-dim);
+      border-color: var(--er-amber-border);
+      color: var(--er-amber);
+    }
+  }
+}
+
+
+// ── 15. Pagination / DataTables ───────────────────────────────
+[data-bs-theme="dark"] {
+
+  .dt-paging,
+  .pagination {
+
+    ul.pagination,
+    ol.pagination {
+      margin: 0;
+      padding: 0;
+      gap: .25rem;
+    }
+
+    .page-link {
+      background-color: var(--er-bg-card);
+      border-color: var(--er-border);
+      color: var(--er-text-secondary);
+      border-radius: var(--er-radius) !important;
+      font-size: .82rem;
+      padding: .4rem .75rem;
+      transition: all .15s;
+
+      &:hover:not(:disabled) {
+        background: var(--er-amber-dim);
+        border-color: var(--er-amber-border);
+        color: var(--er-amber);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px var(--er-amber-dim);
+      }
+    }
+
+    .page-item.active .page-link {
+      background-color: var(--er-amber);
+      border-color: var(--er-amber);
+      color: #1e293b;
+      font-weight: 700;
+    }
+
+    .page-item.disabled .page-link {
+      background-color: var(--er-bg-base);
+      color: var(--er-text-muted);
+      border-color: var(--er-border);
+    }
+  }
+}
+
+
+// ── 16. Sidebar (admin layout) ────────────────────────────────
+[data-bs-theme="dark"] {
+  .sidebar {
+    width: 250px;
+    background: var(--er-bg-card);
+    border-right: 1px solid var(--er-border);
+    color: var(--er-text-primary);
+    flex-shrink: 0;
+    z-index: 1050;
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--er-text-primary);
+      padding: 1.25rem 1.25rem .75rem;
+      letter-spacing: -.02em;
+
+      &::after {
+        content: '.';
+        color: var(--er-amber);
+      }
+    }
+
+    a {
+      color: var(--er-text-secondary);
+      text-decoration: none;
+      padding: .55rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .875rem;
+      font-weight: 500;
+      border-radius: var(--er-radius);
+      margin: .1rem .5rem;
+      transition: background .15s, color .15s;
+
+      &:hover,
+      &:focus,
+      &.active {
+        background: var(--er-amber-dim);
+        color: var(--er-amber);
+      }
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--er-border);
+      margin: .75rem 1rem;
+    }
+  }
+
+  .main-content {
+    flex-grow: 1;
+    padding: 1.5rem;
+    background: var(--er-bg-base);
+    min-height: 100vh;
+  }
+
+  .close-btn {
+    display: none;
+    text-align: right;
+    padding: .75rem 1.25rem;
+    cursor: pointer;
+    color: var(--er-amber);
+    font-size: 1.2rem;
+  }
+
+  // Responsive sidebar
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      left: -260px;
+      top: 0;
+      bottom: 0;
+      height: 100vh;
+      transition: left .25s cubic-bezier(.4, 0, .2, 1);
+
+      &.show {
+        left: 0;
+      }
+    }
+
+    .overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .6);
+      z-index: 1040;
+    }
+
+    .close-btn {
+      display: block;
+    }
+  }
+}
+
+
+// ── 17. Auth / Login page ─────────────────────────────────────
+[data-bs-theme="dark"] {
+  body#authBody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--er-bg-base);
+  }
+
+  .auth-container {
+    width: 820px;
+    max-width: 100%;
+    display: flex;
+    border-radius: var(--er-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, .5);
+    border: 1px solid var(--er-border);
+  }
+
+  .auth-left {
+    width: 50%;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+    border-right: 1px solid var(--er-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+
+    // Amber glow
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(245, 158, 11, .2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    img {
+      max-width: 100%;
+      margin-bottom: 1.25rem;
+      object-fit: cover;
+      height: 280px;
+      border-radius: var(--er-radius);
+      opacity: .9;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--er-text-primary);
+
+      &::after {
+        content: '.';
+        color: var(--er-amber);
+      }
+    }
+
+    p {
+      color: var(--er-text-secondary);
+      font-size: .875rem;
+    }
+  }
+
+  .auth-right {
+    width: 50%;
+    background: var(--er-bg-card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-wrapper {
+    position: absolute;
+    inset: 0;
+    padding: 2.5rem;
+    transition: left .5s cubic-bezier(.4, 0, .2, 1);
+
+    &.register {
+      left: 100%;
+    }
+  }
+
+  .auth-right.show-register {
+    .form-wrapper.login {
+      left: -100%;
+    }
+
+    .form-wrapper.register {
+      left: 0;
+    }
+  }
+
+  .form-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--er-text-primary);
+    margin-bottom: 1.25rem;
+
+    &::after {
+      content: '.';
+      color: var(--er-amber);
+    }
+  }
+
+  .switch-link {
+    display: block;
+    margin-top: 1rem;
+    font-size: .85rem;
+    color: var(--er-amber);
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body#authBody {
+      height: auto;
+      padding: 1.5rem 1rem;
+    }
+
+    .auth-container {
+      flex-direction: column;
+      height: auto;
+    }
+
+    .auth-left,
+    .auth-right {
+      width: 100%;
+    }
+
+    .auth-right {
+      min-height: 480px;
+      overflow: visible;
+    }
+
+    .auth-left img {
+      height: 160px;
+    }
+  }
+}
+
+
+// ── 18. Page hero (reusable, used in calendar + apply across pages) ──
+[data-bs-theme="dark"] {
+  .er-hero {
+    background: linear-gradient(135deg, var(--er-bg-card) 0%, var(--er-bg-base) 100%);
+    border-bottom: 3px solid var(--er-amber);
+    padding: 2rem 0 1.75rem;
+    margin-bottom: 2rem;
+
+    .er-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--er-amber);
+      color: #1e293b;
+      font-weight: 700;
+      font-size: .7rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .35em .85em;
+      border-radius: 2rem;
+      margin-bottom: .6rem;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--er-text-primary);
+      margin: 0 0 .25rem;
+      letter-spacing: -.025em;
+    }
+
+    p {
+      color: var(--er-text-secondary);
+      font-size: .95rem;
+      margin: 0;
+    }
+  }
+}
+
+
+// ── 19. Stat strip (reusable summary bar) ─────────────────────
+[data-bs-theme="dark"] {
+  .er-stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    border-bottom: 1px solid var(--er-border);
+
+    .er-stat {
+      padding: 1rem 1.25rem;
+      text-align: center;
+      border-right: 1px solid var(--er-border);
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .er-stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--er-text-primary);
+
+      &.amber {
+        color: var(--er-amber);
+      }
+
+      &.success {
+        color: var(--er-success);
+      }
+
+      &.danger {
+        color: var(--er-danger);
+      }
+    }
+
+    .er-stat-label {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--er-text-muted);
+      margin-top: .25rem;
+    }
+  }
+}
+
+
+// ── 20. List group ────────────────────────────────────────────
+[data-bs-theme="dark"] {
+  .list-group-item {
+    background: var(--er-bg-card);
+    border-color: var(--er-border);
+    color: var(--er-text-primary);
+    font-size: .875rem;
+
+    &:hover {
+      background: var(--er-bg-elevated);
+    }
+
+    &.active {
+      background: var(--er-amber);
+      border-color: var(--er-amber);
+      color: #1e293b;
+    }
+  }
+}
+
+
+// ── 21. Breadcrumb ────────────────────────────────────────────
+[data-bs-theme="dark"] {
+  .breadcrumb {
+    font-size: .8rem;
+
+    .breadcrumb-item a {
+      color: var(--er-amber);
+      text-decoration: none;
+    }
+
+    .breadcrumb-item.active {
+      color: var(--er-text-muted);
+    }
+
+    .breadcrumb-item+.breadcrumb-item::before {
+      color: var(--er-text-muted);
+    }
+  }
+}
+
+
+// ── 22. Progress bars ─────────────────────────────────────────
+[data-bs-theme="dark"] {
+  .progress {
+    background: var(--er-bg-elevated);
+    border-radius: 2rem;
+    height: .5rem;
+  }
+
+  .progress-bar {
+    background: var(--er-amber);
+    border-radius: 2rem;
+  }
+}
+
+
+// ── 23. Utility classes ───────────────────────────────────────
+[data-bs-theme="dark"] {
+
+  // Amber accent border
+  .border-amber {
+    border-color: var(--er-amber-border) !important;
+  }
+
+  // Subtle amber background
+  .bg-amber-subtle {
+    background: var(--er-amber-dim) !important;
+  }
+
+  // Surface card colours
+  .bg-surface {
+    background: var(--er-bg-card) !important;
+  }
+
+  .bg-elevated {
+    background: var(--er-bg-elevated) !important;
+  }
+
+  // Hint / tip box (matches calendar sidebar)
+  .er-hint {
+    border-radius: var(--er-radius);
+    background: var(--er-amber-dim);
+    border: 1px solid var(--er-amber-border);
+    padding: .6rem .875rem;
+    font-size: .8rem;
+    color: #fcd34d;
+  }
+
+  // Rounded icon wrapper
+  .er-icon-box {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: .55rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &.amber {
+      background: var(--er-amber-dim);
+      color: var(--er-amber);
+    }
+
+    &.success {
+      background: rgba(34, 197, 94, .12);
+      color: var(--er-success);
+    }
+
+    &.danger {
+      background: rgba(239, 68, 68, .12);
+      color: var(--er-danger);
+    }
+
+    &.info {
+      background: rgba(56, 189, 248, .12);
+      color: var(--er-info);
+    }
+  }
+
+  // Divider with amber dot
+  .er-divider {
+    border: none;
+    border-top: 1px solid var(--er-border);
+    margin: 1.25rem 0;
+  }
+
+  // Status dot indicator
+  .er-dot {
+    width: .55rem;
+    height: .55rem;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+
+    &.amber {
+      background: var(--er-amber);
+    }
+
+    &.success {
+      background: var(--er-success);
+    }
+
+    &.danger {
+      background: var(--er-danger);
+    }
+
+    &.muted {
+      background: var(--er-text-muted);
+    }
+  }
+}
+
+
+// ── 24. FullCalendar overrides ────────────────────────────────
+//    Kept global since the calendar page inlines its own <style>
+//    but these can serve as fallback/defaults if you extract it.
+[data-bs-theme="dark"] {
+  .fc .fc-toolbar-title {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: var(--er-text-primary) !important;
+    font-family: var(--er-font) !important;
+  }
+
+  .fc .fc-button {
+    background: var(--er-bg-base) !important;
+    border-color: var(--er-border) !important;
+    color: var(--er-text-secondary) !important;
+    border-radius: .4rem !important;
+    font-size: .8rem !important;
+    padding: .35rem .7rem !important;
+    box-shadow: none !important;
+    font-family: var(--er-font) !important;
+    transition: all .15s;
+  }
+
+  .fc .fc-button:hover,
+  .fc .fc-button-active {
+    background: var(--er-amber) !important;
+    border-color: var(--er-amber) !important;
+    color: #1e293b !important;
+  }
+
+  .fc-theme-standard td,
+  .fc-theme-standard th,
+  .fc-theme-standard .fc-scrollgrid {
+    border-color: var(--er-border) !important;
+  }
+
+  .fc .fc-col-header-cell-cushion {
+    color: var(--er-text-muted) !important;
+    font-size: .78rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    text-decoration: none !important;
+    font-family: var(--er-font) !important;
+  }
+
+  .fc .fc-daygrid-day-number {
+    color: var(--er-text-secondary) !important;
+    font-size: .82rem;
+    text-decoration: none !important;
+  }
+
+  .fc .fc-day-today {
+    background: var(--er-amber-dim) !important;
+  }
+
+  .fc .fc-day-today .fc-daygrid-day-number {
+    color: var(--er-amber) !important;
+    font-weight: 700 !important;
+  }
+
+  .fc-bg-event {
+    background-color: rgba(239, 68, 68, .3) !important;
+    border-left: 3px solid var(--er-danger) !important;
+    opacity: 1 !important;
+  }
+}

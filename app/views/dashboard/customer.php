@@ -18,16 +18,7 @@
                 <div class="card-body">
                     <h5 class="card-title">My Rentals</h5>
                     <p class="card-text">Track your active, pending, and completed bookings. View payment status.</p>
-                    <a href="?controller=booking&action=myBookings" class="btn btn-secondary">Coming Soon</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Profile Settings</h5>
-                    <p class="card-text">Update your personal information and password.</p>
-                    <a href="#" class="btn btn-secondary">Coming Soon</a>
+                    <a href="?controller=booking&action=myBookings" class="btn btn-primary">View Rentals</a>
                 </div>
             </div>
         </div>

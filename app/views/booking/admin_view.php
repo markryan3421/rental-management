@@ -1,11 +1,11 @@
 <?php ob_start(); ?>
 <div class="container mt-4">
-    <?php if (isset($booking)): ?>
-      <h1>Booking #<?= $booking['id'] ?></h1>
+    <?php if (isset($booking) && (is_array($booking) || $booking instanceof ArrayAccess)): ?>
+      <h1>Booking #<?= htmlspecialchars($booking['id']) ?></h1>
       <div class="row">
           <div class="col-md-6">
               <div class="card shadow-sm mb-4">
-                  <div class="card-header bg-primary text-white">
+                  <div class="card-header bg-secondary text-white">
                       <h5 class="mb-0">Booking Details</h5>
                   </div>
                   <div class="card-body">
@@ -61,7 +61,7 @@
               
                 <!-- Update Payment Status -->
                 <div class="card shadow-sm">
-                    <div class="card-header bg-success text-white">
+                    <div class="card-header bg-secondary text-white">
                         <h5 class="mb-0">Payment Management</h5>
                     </div>
                     <div class="card-body">
