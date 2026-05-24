@@ -2,7 +2,7 @@
 
 <div class="container mt-4">
     <h2>Add New Equipment</h2>
-    <form method="POST" action="?controller=equipment&action=store">
+    <form method="POST" action="?controller=equipment&action=store" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label">Name *</label>
             <input type="text" class="form-control" id="name" name="name" required>
@@ -20,8 +20,9 @@
             <input type="number" class="form-control" id="quantity" name="quantity" required>
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label">Image URL (optional)</label>
-            <input type="text" class="form-control" id="image" name="image" placeholder="https://...">
+            <label for="image" class="form-label">Equipment Image (optional)</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/jpeg,image/png,image/webp">
+            <small class="text-muted">Leave empty to use default image.</small>
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>

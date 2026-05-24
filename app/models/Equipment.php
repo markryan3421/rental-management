@@ -12,6 +12,27 @@ class Equipment
         $this->db = require __DIR__ . '/../config/database.php';
     }
 
+    /**
+     * Get image URL (returns fallback if none)
+     */
+    public function getImageUrl(?string $imagePath): string
+    {
+        if ($imagePath && file_exists(__DIR__ . '/../../public/' . $imagePath)) {
+            return '/' . $imagePath;
+        }
+        return '/assets/imgs/fallback-equipment.jpg'; // you need to create this fallback image
+    }
+
+    /**
+     * Delete image file when equipment is deleted
+     */
+    public function deleteImageFile(?string $imagePath): void
+    {
+        if ($imagePath && file_exists(__DIR__ . '/../../public/' . $imagePath)) {
+            unlink(__DIR__ . '/../../public/' . $imagePath);
+        }
+    }
+
     public function getBookedDates(int $equipmentId): array
     {
         $sql = "SELECT b.start_date, b.end_date
@@ -118,6 +139,15 @@ class Equipment
 
     public function delete(int $id): bool
     {
+        // First get the image path
+        $stmt = $this->db->prepare("SELECT image FROM equipment WHERE id = ?");
+        $stmt->execute([$id]);
+        $image = $stmt->fetchColumn();
+        
+        if ($image) {
+            $this->deleteImageFile($image);
+        }
+        
         $stmt = $this->db->prepare("DELETE FROM equipment WHERE id = ?");
         return $stmt->execute([$id]);
     }

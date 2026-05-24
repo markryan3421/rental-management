@@ -77,12 +77,35 @@ class EquipmentController
             return;
         }
 
+        // Handle image upload
+        $imagePath = null;
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/../../public/uploads/equipment/';
+            
+            // Create directory if not exists
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+            
+            $fileExt = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $fileName = time() . '_' . uniqid() . '.' . $fileExt;
+            $targetFile = $uploadDir . $fileName;
+            
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                $imagePath = 'uploads/equipment/' . $fileName;
+            } else {
+                Flash::set('error', 'Image upload failed.');
+                $this->redirect('equipment', 'create');
+                return;
+            }
+        }
+
         $data = [
             'name' => $_POST['name'] ?? '',
             'description' => $_POST['description'] ?? '',
             'price_per_day' => (float) ($_POST['price_per_day'] ?? 0),
             'quantity' => (int) ($_POST['quantity'] ?? 0),
-            'image' => $_POST['image'] ?? '',
+            'image' => $imagePath,          // store path or null
             'status' => $_POST['status'] ?? 'available'
         ];
 
@@ -113,12 +136,41 @@ class EquipmentController
             return;
         }
 
+        // Fetch current equipment data to get old image
+        $currentEquipment = $this->equipment->getById($id);
+        $imagePath = $currentEquipment['image'] ?? null; // keep old by default
+
+        // Handle new image upload
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/../../public/uploads/equipment/';
+            
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+            
+            $fileExt = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $fileName = time() . '_' . uniqid() . '.' . $fileExt;
+            $targetFile = $uploadDir . $fileName;
+            
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                // Delete old image if exists
+                if ($imagePath && file_exists(__DIR__ . '/../../public/' . $imagePath)) {
+                    unlink(__DIR__ . '/../../public/' . $imagePath);
+                }
+                $imagePath = 'uploads/equipment/' . $fileName;
+            } else {
+                Flash::set('error', 'Image upload failed.');
+                $this->redirect('equipment', 'edit', ['id' => $id]);
+                return;
+            }
+        }
+
         $data = [
             'name' => $_POST['name'] ?? '',
             'description' => $_POST['description'] ?? '',
             'price_per_day' => (float) ($_POST['price_per_day'] ?? 0),
             'quantity' => (int) ($_POST['quantity'] ?? 0),
-            'image' => $_POST['image'] ?? '',
+            'image' => $imagePath,
             'status' => $_POST['status'] ?? 'available'
         ];
 

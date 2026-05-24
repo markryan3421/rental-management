@@ -79,11 +79,16 @@
             <?php foreach ($equipmentList as $item): ?>
                 <div class="col equipment-card" data-id="<?= $item['id'] ?>">
                     <div class="card h-100 shadow-sm">
-                        <?php if (!empty($item['image'])): ?>
-                            <img src="<?= htmlspecialchars($item['image']) ?>" class="card-img-top" alt="<?= htmlspecialchars($item['name']) ?>" style="height: 200px; object-fit: cover;">
-                        <?php else: ?>
-                            <div class="bg-secondary text-white text-center py-5">No Image</div>
-                        <?php endif; ?>
+                        <?php
+                        $imageUrl = !empty($item['image']) 
+                            ? htmlspecialchars($item['image']) 
+                            : 'assets/imgs/fallback-equipment.jpg';
+                        ?>
+                        <img src="<?= $imageUrl ?>" 
+                            class="card-img-top" 
+                            alt="<?= htmlspecialchars($item['name']) ?>" 
+                            style="height: 200px; object-fit: cover;"
+                            onerror="this.onerror=null; this.src='/rental-management/public/assets/imgs/fallback-equipment.jpg';">
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($item['name']) ?></h5>
                             <p class="card-text"><?= htmlspecialchars($item['description'] ?? 'No description') ?></p>

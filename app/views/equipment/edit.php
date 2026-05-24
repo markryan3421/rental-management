@@ -2,7 +2,7 @@
 <div class="container mt-4">
     <h2>Edit Equipment</h2>
     <?php if (isset($item)): ?>
-    <form method="POST" action="?controller=equipment&action=update&id=<?= $item['id'] ?>">
+    <form method="POST" action="?controller=equipment&action=update&id=<?= $item['id'] ?>" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label">Name *</label>
             <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($item['name']) ?>" required>
@@ -19,9 +19,18 @@
             <label for="quantity" class="form-label">Quantity *</label>
             <input type="number" class="form-control" id="quantity" name="quantity" value="<?= $item['quantity'] ?>" required>
         </div>
+        <!-- Current image preview -->
+        <?php if (!empty($equipment['image'])): ?>
+            <div class="mb-3">
+                <label class="form-label">Current Image</label><br>
+                <img src="/<?= htmlspecialchars($equipment['image']) ?>" alt="Current" style="max-height: 100px;">
+            </div>
+        <?php endif; ?>
+
         <div class="mb-3">
-            <label for="image" class="form-label">Image URL</label>
-            <input type="text" class="form-control" id="image" name="image" value="<?= htmlspecialchars($item['image'] ?? '') ?>">
+            <label for="image" class="form-label">Change Image (optional)</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/jpeg,image/png,image.webp">
+            <small class="text-muted">Leave empty to keep current image.</small>
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
