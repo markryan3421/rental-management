@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 <style>
 :root {
-    --cal-accent:  #f59e0b;   /* amber – energetic, rental-industry feel */
+    --cal-accent:  #0b2ef5;   /* amber – energetic, rental-industry feel */
     --cal-danger:  #ef4444;   /* booked */
     --cal-available: #22c55e; /* available */
   }

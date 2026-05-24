@@ -2,6 +2,7 @@
 // Check if user is logged in
 $isLoggedIn = isset($_SESSION['user_id']);
 $userName = $_SESSION['name'] ?? 'User';
+$userRole = $_SESSION['role'] ?? '';
 ?>
 
 <?php require_once BASE_PATH . '/app/core/Flash.php'; ?>
@@ -11,7 +12,6 @@ $userName = $_SESSION['name'] ?? 'User';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <title>EventShop Rentals</title>
-  <!-- Prevent scrolling on all pages -->
   <style>
     * {
       margin: 0;
@@ -20,13 +20,12 @@ $userName = $_SESSION['name'] ?? 'User';
     }
     html, body {
       height: 100%;
-      overflow: hidden;   /* No scrollbars anywhere */
+      overflow: hidden;
     }
     main {
-      height: calc(100vh - 76px);  /* 76px = navbar height (approx) */
-      overflow-y: auto;   /* Internal scroll only if content overflows, but we design to avoid */
+      height: calc(100vh - 76px);
+      overflow-y: auto;
     }
-    /* Hide scrollbar for main but keep functionality (optional) */
     main::-webkit-scrollbar {
       display: none;
     }
@@ -34,7 +33,6 @@ $userName = $_SESSION['name'] ?? 'User';
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    /* Ensure all page content fits in viewport */
     .page-section {
       min-height: 100%;
       display: flex;
@@ -52,26 +50,35 @@ $userName = $_SESSION['name'] ?? 'User';
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container">
-        <div class="navbar-brand fw-bold">JB's Rentals</div>
+        <div class="navbar-brand fw-bold">Event Shop</div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-          <?php if (!$isLoggedIn): ?>
-            <!-- Public pages -->
-            <li class="nav-item"><a class="nav-link" href="?controller=page&action=home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="?controller=page&action=shop">Shop</a></li>
-            <li class="nav-item"><a class="nav-link" href="?controller=page&action=about">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="?controller=page&action=contact">Contact</a></li>
-            <li class="nav-item">
-                <a class="nav-link" href="?controller=equipment&action=calendar">Availability Calendar</a>
-            </li>
-          <?php endif; ?>
-            
+            <!-- Public pages (Home, About, Contact) – visible only to guests -->
+            <?php if (!$isLoggedIn): ?>
+              <li class="nav-item"><a class="nav-link" href="?controller=page&action=home">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="?controller=page&action=about">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="?controller=page&action=contact">Contact</a></li>
+            <?php endif; ?>
+
+            <!-- Shop – visible to guests and customers (hide from admin) -->
+            <?php if (!$isLoggedIn || ($isLoggedIn && $userRole !== 'admin')): ?>
+              <li class="nav-item"><a class="nav-link" href="?controller=page&action=shop">Shop</a></li>
+            <?php endif; ?>
+
+            <!-- My Rentals – visible only to customers (logged in and not admin) -->
+            <?php if ($isLoggedIn && $userRole !== 'admin'): ?>
+              <li class="nav-item"><a class="nav-link" href="?controller=booking&action=myBookings">My Rentals</a></li>
+            <?php endif; ?>
+
+            <!-- Availability Calendar – visible to everyone (guests, customers, admins) -->
+            <li class="nav-item"><a class="nav-link" href="?controller=equipment&action=calendar">Availability Calendar</a></li>
+
             <!-- Admin only -->
-            <?php if ($isLoggedIn && ($_SESSION['role'] ?? '') === 'admin'): ?>
+            <?php if ($isLoggedIn && $userRole === 'admin'): ?>
               <li class="nav-item"><a class="nav-link" href="?controller=equipment&action=index">Equipment</a></li>
               <li class="nav-item"><a class="nav-link" href="?controller=booking&action=adminIndex">All Bookings</a></li>
             <?php endif; ?>
@@ -83,8 +90,11 @@ $userName = $_SESSION['name'] ?? 'User';
                 <i class="bi bi-person-circle"></i> <?= htmlspecialchars($userName) ?>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="?controller=dashboard&action=admin">Dashboard</a></li>
-                <li><a class="dropdown-item" href="?controller=booking&action=myBookings">My Rentals</a></li>
+                <?php if ($userRole === 'admin'): ?>
+                  <li><a class="dropdown-item" href="?controller=dashboard&action=admin">Admin Dashboard</a></li>
+                <?php else: ?>
+                  <li><a class="dropdown-item" href="?controller=dashboard&action=customer">My Dashboard</a></li>
+                <?php endif; ?>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" href="?controller=auth&action=logout">Logout</a></li>
               </ul>
@@ -112,7 +122,6 @@ $userName = $_SESSION['name'] ?? 'User';
 
   <script>
     setTimeout(() => { document.querySelectorAll('.alert').forEach(el => el.style.display = 'none'); }, 3000);
-    // GSAP animations (only if elements exist)
     gsap.registerPlugin(ScrollTrigger);
     document.querySelectorAll('.fade-up').forEach(el => {
       gsap.fromTo(el, { opacity: 0, y: 50 }, {

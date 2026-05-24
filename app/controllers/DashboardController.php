@@ -22,6 +22,10 @@ class DashboardController
 
     public function customer()
     {
+        if (($_SESSION['role'] ?? '') !== 'customer') {
+            header("Location: ?controller=dashboard&action=admin");
+            exit;
+        }
         require __DIR__ . '/../views/dashboard/customer.php';
     }
 

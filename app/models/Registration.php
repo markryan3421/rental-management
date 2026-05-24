@@ -13,13 +13,13 @@ class Registration
         $this->db = require __DIR__ . '/../config/database.php';
     }
 
-    public function create(string $name, string $email, string $password): bool
+    public function create(string $name, string $email, string $password, string $mobile, string $barangay, string $street): bool
     {
         $stmt = $this->db->prepare("
-            INSERT INTO users (name, email, password, created_at)
-            VALUES (?, ?, ?, NOW())
+            INSERT INTO users (name, email, password, mobile_number, barangay, street, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, NOW())
         ");
-        return $stmt->execute([$name, $email, $password]);
+        return $stmt->execute([$name, $email, $password, $mobile, $barangay, $street]);
     }
 
     public function findByEmail(string $email): ?array
